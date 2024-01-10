@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "875299234772",
+    "project_id": "los-goyapp",
+    "storage_bucket": "los-goyapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:875299234772:android:afbebde0cf4984e0bf2c41",
+        "android_client_info": {
+          "package_name": "com.joseoliva.losgoyapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0F1ZP8_ODpOhW5807uuY5KBWrT_W6iT0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
