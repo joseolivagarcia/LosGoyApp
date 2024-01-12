@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "875299234772",
+    "firebase_url": "https://los-goyapp-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "los-goyapp",
     "storage_bucket": "los-goyapp.appspot.com"
   },
