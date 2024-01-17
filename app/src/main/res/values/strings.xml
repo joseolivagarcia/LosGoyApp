@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">LosGoyApp</string>
+    <string name="titulo_preguntas_activity">¿Cúanto sabes de...?</string>
 </resources>
