@@ -1,4 +1,4 @@
-package com.joseoliva.losgoyapp.ui
+package com.joseoliva.losgoyapp.ui.main
 
 import android.content.Intent
 import android.os.Bundle

@@ -1,13 +1,19 @@
-package com.joseoliva.losgoyapp.ui
+package com.joseoliva.losgoyapp.ui.game
 
+import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.joseoliva.losgoyapp.data.response.QuestionResponse
 import com.joseoliva.losgoyapp.databinding.ActivityPreguntasBinding
+import com.joseoliva.losgoyapp.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class PreguntasActivity: AppCompatActivity(){
@@ -16,6 +22,8 @@ class PreguntasActivity: AppCompatActivity(){
     private var listaPreguntas: MutableList<QuestionResponse> = mutableListOf()
 
     var numAle: Int = 0
+    private var score = 0
+    private var totalScore = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,11 +61,26 @@ class PreguntasActivity: AppCompatActivity(){
         initListeners(numAle)
     }
 
-    private fun initListeners(num: Int) {
-        binding.tvrespuestaA.setOnClickListener {
+    private fun actualizarMarcador(){
+        totalScore = score + 25
+        score = totalScore
+        binding.tvscore.text = totalScore.toString()
+    }
 
+    private suspend fun finalizarJuego(){
+        delay(2000)
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun initListeners(num: Int) {
+
+        val colorAcierto = ColorStateList.valueOf(Color.GREEN)
+        val colorFallo = ColorStateList.valueOf(Color.RED)
+
+        binding.tvrespuestaA.setOnClickListener {
             if (binding.tvrespuestaA.text.equals(listaPreguntas[num].respuestaCorrecta.toString())) {
-                Toast.makeText(this, "Has acertado", Toast.LENGTH_SHORT).show()
+                actualizarMarcador()
                 listaPreguntas.removeAt(num)
                 empezarJuego()
             } else {
@@ -68,7 +91,7 @@ class PreguntasActivity: AppCompatActivity(){
         }
         binding.tvrespuestaB.setOnClickListener {
             if (binding.tvrespuestaB.text.equals(listaPreguntas[num].respuestaCorrecta.toString())) {
-                Toast.makeText(this, "Has acertado", Toast.LENGTH_SHORT).show()
+                actualizarMarcador()
                 listaPreguntas.removeAt(num)
                 empezarJuego()
             } else {
@@ -79,7 +102,7 @@ class PreguntasActivity: AppCompatActivity(){
         }
         binding.tvrespuestaC.setOnClickListener {
             if (binding.tvrespuestaC.text.equals(listaPreguntas[num].respuestaCorrecta.toString())) {
-                Toast.makeText(this, "Has acertado", Toast.LENGTH_SHORT).show()
+                actualizarMarcador()
                 listaPreguntas.removeAt(num)
                 empezarJuego()
             } else {
@@ -90,7 +113,7 @@ class PreguntasActivity: AppCompatActivity(){
         }
         binding.tvrespuestaD.setOnClickListener {
             if (binding.tvrespuestaD.text.equals(listaPreguntas[num].respuestaCorrecta.toString())) {
-                Toast.makeText(this, "Has acertado", Toast.LENGTH_SHORT).show()
+                actualizarMarcador()
                 listaPreguntas.removeAt(num)
                 empezarJuego()
             } else {
@@ -103,7 +126,7 @@ class PreguntasActivity: AppCompatActivity(){
 
     private fun contadorCircular(){
         binding.progressCircular.apply {
-            setProgressWithAnimation(1f, 60000)
+            setProgressWithAnimation(1f, 10000)
 
             progressMax = 1f
             progressBarColor = Color.BLUE
@@ -111,14 +134,19 @@ class PreguntasActivity: AppCompatActivity(){
 
             binding.progressCircular.onProgressChangeListener = { progress ->
                 //aqui definimos lo que queremos cuando termine el progreso o en el punto que queramos del progreso
-                if (progress == 0.5f){
-                    Toast.makeText(context,"Mitad", Toast.LENGTH_SHORT).show()
-                }else if (progress == 1f){
-                    Toast.makeText(context,"Fin", Toast.LENGTH_SHORT).show()
+                if (progress == 1f){
+                    binding.tvrespuestaA.isEnabled = false
+                    binding.tvrespuestaB.isEnabled = false
+                    binding.tvrespuestaC.isEnabled = false
+                    binding.tvrespuestaD.isEnabled = false
+                    lifecycleScope.launch {
+                        finalizarJuego()
+                    }
+                    }
                 }
 
             }
         }
-    }
+
 
 }

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.PreguntasActivity">
+    tools:context=".ui.game.PreguntasActivity">
 
     <TextView
         android:id="@+id/tvtitulo"
@@ -33,7 +33,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cvpregunta"
         android:layout_width="match_parent"
-        android:layout_height="320dp"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/ivgoya"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

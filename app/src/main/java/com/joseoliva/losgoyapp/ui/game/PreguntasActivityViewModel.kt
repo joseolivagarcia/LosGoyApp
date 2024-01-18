@@ -1,4 +1,4 @@
-package com.joseoliva.losgoyapp.ui
+package com.joseoliva.losgoyapp.ui.game
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

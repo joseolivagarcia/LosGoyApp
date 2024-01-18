@@ -12,7 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.joseoliva.losgoyapp.data.response.QuestionResponse
 import com.joseoliva.losgoyapp.databinding.ActivitySplashBinding
-import com.joseoliva.losgoyapp.ui.PreguntasActivity
+import com.joseoliva.losgoyapp.ui.game.PreguntasActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -52,7 +52,7 @@ class SplashActivity : AppCompatActivity() {
 
     private fun navigateToGame() {
         //startActivity(Intent(this, PreguntasActivity::class.java))
-        val intent = Intent(this,PreguntasActivity::class.java)
+        val intent = Intent(this, PreguntasActivity::class.java)
         intent.putParcelableArrayListExtra("preguntas", lista as ArrayList<out Parcelable>)
         startActivity(intent)
     }
