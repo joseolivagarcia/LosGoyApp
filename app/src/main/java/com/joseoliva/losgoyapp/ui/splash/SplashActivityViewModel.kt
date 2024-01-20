@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.database.DatabaseReference
+import com.joseoliva.losgoyapp.data.models.QuestionResponse
 import com.joseoliva.losgoyapp.data.network.FirebaseService
-import com.joseoliva.losgoyapp.data.response.QuestionResponse
 import com.joseoliva.losgoyapp.domain.GetPreguntasUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

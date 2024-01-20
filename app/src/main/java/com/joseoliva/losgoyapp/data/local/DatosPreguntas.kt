@@ -1,6 +1,6 @@
 package com.joseoliva.losgoyapp.data.local
 
-import com.joseoliva.losgoyapp.data.response.QuestionResponse
+import com.joseoliva.losgoyapp.data.models.QuestionResponse
 
 class DatosPreguntas {
 

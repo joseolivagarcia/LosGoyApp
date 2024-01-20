@@ -2,8 +2,8 @@ package com.joseoliva.losgoyapp.ui.main
 
 import androidx.lifecycle.ViewModel
 import com.google.firebase.database.DatabaseReference
+import com.joseoliva.losgoyapp.data.models.QuestionResponse
 import com.joseoliva.losgoyapp.data.network.FirebaseService
-import com.joseoliva.losgoyapp.data.response.QuestionResponse
 import com.joseoliva.losgoyapp.domain.GetPreguntasUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

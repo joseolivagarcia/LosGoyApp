@@ -5,5 +5,5 @@ import javax.inject.Inject
 
 class GetPreguntasUseCase @Inject constructor(private val firebaseService: FirebaseService) {
 
-    operator fun invoke() = firebaseService.getPreguntas()
+    //operator fun invoke() = firebaseService.getPreguntas()
 }

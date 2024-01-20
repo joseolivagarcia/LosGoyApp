@@ -16,6 +16,9 @@
         android:theme="@style/Theme.LosGoyApp"
         tools:targetApi="31">
         <activity
+            android:name=".ui.ranking.RankingActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.splash.SplashActivity"
             android:exported="false" />
         <activity

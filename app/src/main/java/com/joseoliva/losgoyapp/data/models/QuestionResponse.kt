@@ -1,4 +1,4 @@
-package com.joseoliva.losgoyapp.data.response
+package com.joseoliva.losgoyapp.data.models
 
 import android.os.Parcel
 import android.os.Parcelable

@@ -10,7 +10,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.joseoliva.losgoyapp.data.response.QuestionResponse
+import com.joseoliva.losgoyapp.data.models.QuestionResponse
 import com.joseoliva.losgoyapp.databinding.ActivitySplashBinding
 import com.joseoliva.losgoyapp.ui.game.PreguntasActivity
 import dagger.hilt.android.AndroidEntryPoint

@@ -8,9 +8,9 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.joseoliva.losgoyapp.data.response.QuestionResponse
+import com.joseoliva.losgoyapp.data.models.QuestionResponse
 import com.joseoliva.losgoyapp.databinding.ActivityPreguntasBinding
-import com.joseoliva.losgoyapp.ui.main.MainActivity
+import com.joseoliva.losgoyapp.ui.ranking.RankingActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -69,7 +69,7 @@ class PreguntasActivity: AppCompatActivity(){
 
     private suspend fun finalizarJuego(){
         delay(2000)
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, RankingActivity::class.java)
         startActivity(intent)
     }
 
