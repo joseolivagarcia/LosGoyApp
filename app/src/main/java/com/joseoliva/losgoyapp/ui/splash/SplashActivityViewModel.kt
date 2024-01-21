@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.database.DatabaseReference
 import com.joseoliva.losgoyapp.data.models.QuestionResponse
+import com.joseoliva.losgoyapp.data.models.rankingModel
 import com.joseoliva.losgoyapp.data.network.FirebaseService
 import com.joseoliva.losgoyapp.domain.GetPreguntasUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,16 +27,22 @@ class SplashActivityViewModel @Inject constructor(
     val isLoading: StateFlow<Boolean> = _isLoading
 
     var listado: MutableList<QuestionResponse> = mutableListOf()
+    var listadoRanking: MutableList<rankingModel> = mutableListOf()
 
-    fun dataFromFirebase(): MutableList<QuestionResponse> {
+    fun dataFromFirebase(): Pair<MutableList<QuestionResponse>,MutableList<rankingModel>> {
         viewModelScope.launch {
             _isLoading.value = true
             val result = withContext(Dispatchers.IO) {
                 firebaseService.getAllPreguntas()
             }
-            if (result != null) {
+            val resultRanking = withContext(Dispatchers.IO){
+                firebaseService.getFirstRanking()
+            }
+            if (result != null && resultRanking != null) {
                 listado = result.toMutableList()
+                listadoRanking = resultRanking.toMutableList()
                 Log.i("preguntas", "tengo lista de ${listado.size}")
+                Log.i("preguntas", "tengo ranking de ${listadoRanking.size}")
             } else {
                 Log.i("preguntas", "error de conexion")
             }
@@ -43,7 +50,7 @@ class SplashActivityViewModel @Inject constructor(
             _isLoading.value = false
 
         }
-        return listado
+        return Pair(listado,listadoRanking)
     }
 }
 

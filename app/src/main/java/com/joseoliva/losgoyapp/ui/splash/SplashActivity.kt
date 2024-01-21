@@ -11,6 +11,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.joseoliva.losgoyapp.data.models.QuestionResponse
+import com.joseoliva.losgoyapp.data.models.rankingModel
 import com.joseoliva.losgoyapp.databinding.ActivitySplashBinding
 import com.joseoliva.losgoyapp.ui.game.PreguntasActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,6 +23,7 @@ class SplashActivity : AppCompatActivity() {
     private val splashViewModel: SplashActivityViewModel by viewModels()
     private lateinit var binding: ActivitySplashBinding
     var lista: MutableList<QuestionResponse> = mutableListOf()
+    var listaRanking: MutableList<rankingModel> = mutableListOf()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
@@ -38,6 +40,7 @@ class SplashActivity : AppCompatActivity() {
                     binding.pbloading.isVisible = it
                     if (!it){
                         lista = splashViewModel.listado
+                        listaRanking = splashViewModel.listadoRanking
                         navigateToGame()
                         Log.i("preguntas","accedo a game y la lista tiene: ${lista.size}")
                     }
@@ -54,6 +57,7 @@ class SplashActivity : AppCompatActivity() {
         //startActivity(Intent(this, PreguntasActivity::class.java))
         val intent = Intent(this, PreguntasActivity::class.java)
         intent.putParcelableArrayListExtra("preguntas", lista as ArrayList<out Parcelable>)
+        intent.putParcelableArrayListExtra("ranking", listaRanking as ArrayList<out Parcelable>)
         startActivity(intent)
     }
 

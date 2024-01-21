@@ -5,7 +5,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.joseoliva.losgoyapp.data.models.rankingModel
 import com.joseoliva.losgoyapp.databinding.ActivityRankingBinding
 import com.joseoliva.losgoyapp.ui.ranking.adapter.RankingAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,13 +16,14 @@ class RankingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRankingBinding
     private val viewModel: RankingActivityViewModel by viewModels()
     private lateinit var rankingAdapter: RankingAdapter
-    private var lista: MutableList<rankingModel> = mutableListOf<rankingModel>()
+    //private var puntuacion: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRankingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        lista = mutableListOf(rankingModel("pepe", "240"),rankingModel("luis","222"))
+        /*puntuacion = this.intent.getIntExtra("puntuacion", 0)
+        Log.i("preguntas", "recibo: $puntuacion puntos")*/
 
         viewModel.getRanking()
         setUpUI()
@@ -32,7 +32,7 @@ class RankingActivity : AppCompatActivity() {
 
     private fun setUpUI() {
         setUpRanking() //funcion para iniciar el recyclerview
-        subscribeContacts()
+        subscribeRanking()
     }
 
     private fun setUpRanking() {
@@ -43,12 +43,26 @@ class RankingActivity : AppCompatActivity() {
         }
     }
 
-    private fun subscribeContacts(){
+    private fun subscribeRanking() {
         lifecycleScope.launch {
-            viewModel.rankingtList.collect{
+            viewModel.rankingtList.collect {
                 rankingAdapter.updateList(it.toMutableList())
             }
         }
+
+        /*lifecycleScope.launch {
+            delay(1000)
+            comprobarPuntuacion()
+        }
+
     }
 
+    private fun comprobarPuntuacion() {
+        if(viewModel.rankingtList.value.get(0).puntos?.toInt()!! < puntuacion){
+            Toast.makeText(this,"Entras en el ranking!!",Toast.LENGTH_SHORT).show()
+            Log.i("preguntas","Entras en el ranking con: $puntuacion")
+        }
+    }*/
+
+    }
 }

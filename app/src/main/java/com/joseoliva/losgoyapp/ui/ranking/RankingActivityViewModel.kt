@@ -28,7 +28,6 @@ class RankingActivityViewModel @Inject constructor(
         viewModelScope.launch {
             getRankingUseCase().collect{
                 Log.d("preguntas", "la info es $it")
-                Log.d("preguntas", "la menor puntuacion es  ${it.get(0).puntos}")
                 _rankingList.value = it
             }
         }
@@ -37,13 +36,12 @@ class RankingActivityViewModel @Inject constructor(
     //para pruebas
     fun sendRankingToFirebase(){
         var rankinglista: MutableList<rankingModel> = mutableListOf()
-        val ranking1 = rankingModel("jose","275")
-        val ranking2 = rankingModel("esther","150")
-        val ranking3 = rankingModel("lukas","225")
-        val ranking4 = rankingModel("oscar","350")
-        val ranking5 = rankingModel("koda","150")
-        val ranking6 = rankingModel("Pepe","255")
-        rankinglista = mutableListOf(ranking1,ranking2,ranking3,ranking4,ranking5,ranking6)
+        val ranking1 = rankingModel("jose",175)
+        val ranking2 = rankingModel("esther",150)
+        val ranking3 = rankingModel("lukas",25)
+        val ranking4 = rankingModel("oscar",275)
+        val ranking5 = rankingModel("koda",50)
+        rankinglista = mutableListOf(ranking1,ranking2,ranking3,ranking4,ranking5)
         for (r in rankinglista){
             val newRanking = reference.child("ranking").push()
             newRanking.setValue(r)

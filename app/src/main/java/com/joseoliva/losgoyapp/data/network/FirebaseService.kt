@@ -38,6 +38,19 @@ class FirebaseService @Inject constructor( private val reference: DatabaseRefere
         return lista
     }
 
+    suspend fun getFirstRanking(): List<rankingModel>{
+        task_ranking.addOnSuccessListener {
+            dataSnapShot ->
+            for(childSnapShot in dataSnapShot.children){
+                val objeto: rankingModel? = childSnapShot.getValue(rankingModel::class.java)
+                if(objeto != null){
+                    listaRanking.add(objeto)
+                }
+            }
+        }.await()
+        return listaRanking
+    }
+
     fun getRanking(): Flow<List<rankingModel>> {
         return reference.child(PATH_RANKING).orderByChild("puntos").snapshots.map { dataSnapshot: DataSnapshot ->
             dataSnapshot.children.mapNotNull {
@@ -46,34 +59,5 @@ class FirebaseService @Inject constructor( private val reference: DatabaseRefere
         }
     }
 
-    /*fun getPreguntas(): List<QuestionResponse> {
-        reference.child(PATH).snapshots.map { dataSnapshot: DataSnapshot ->
-            dataSnapshot.children.mapNotNull {
-                for (p in it.children){
-                    val pregunta: QuestionResponse? = p.getValue(QuestionResponse::class.java)
-                    if(pregunta != null){
-                    lista.add(pregunta)
-                        Log.i("preguntas", "Hay ${lista.size} preguntas")
-                    }
-                }
-            }
-        }
-        return lista
-    }*/
-
-    /*suspend fun obtenerPreguntas(): List<QuestionResponse>{
-        try {
-            val querySnapShot = reference.child(PATH).get().await()
-            for (doc in querySnapShot.children){
-                val objeto: QuestionResponse? = doc.getValue(QuestionResponse::class.java)
-                if(objeto != null){
-                    lista.add(objeto)
-                }
-            }
-        }catch (e: Exception){
-            Log.i("error", "Error al obtener datos ${e.message}")
-        }
-        return lista
-    }*/
 
 }
