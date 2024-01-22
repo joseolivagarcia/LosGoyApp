@@ -3,4 +3,5 @@
     <string name="titulo_preguntas_activity">¿Cúanto sabes de...?</string>
     <string name="ranking">TOP 5</string>
     <string name="subtitulo_preguntas_activity">LOS GOYA</string>
+    <string name="btnEmpezar">EMPEZAR</string>
 </resources>

@@ -2,14 +2,15 @@ package com.joseoliva.losgoyapp.ui.game
 
 import android.app.Dialog
 import android.content.Intent
-import android.content.res.ColorStateList
 import android.graphics.Color
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.joseoliva.losgoyapp.R
 import com.joseoliva.losgoyapp.data.models.QuestionResponse
 import com.joseoliva.losgoyapp.data.models.RankingModel
 import com.joseoliva.losgoyapp.databinding.ActivityPreguntasBinding
@@ -26,6 +27,7 @@ class PreguntasActivity: AppCompatActivity(){
     private val viewmodel: PreguntasActivityViewModel by viewModels()
     private var listaPreguntas: MutableList<QuestionResponse> = mutableListOf()
     private var listaRankig: MutableList<RankingModel> = mutableListOf()
+    private lateinit var mediaPlayerGame: MediaPlayer
 
     var numAle: Int = 0
     private var score = 0
@@ -52,11 +54,14 @@ class PreguntasActivity: AppCompatActivity(){
     }
 
     private fun setPlay() {
+        mediaPlayerGame = MediaPlayer.create(this,R.raw.thinking)
+        mediaPlayerGame.start()
         empezarJuego()
         contadorCircular()
     }
 
     private fun empezarJuego() {
+
         if(listaPreguntas.size >= 1){
             numAle = (0..listaPreguntas.size -1).random()
 
@@ -83,6 +88,9 @@ class PreguntasActivity: AppCompatActivity(){
     }
 
     private fun finalizarJuego(){
+        mediaPlayerGame.stop()
+        val mediaPlayerEnd = MediaPlayer.create(this,R.raw.end)
+        mediaPlayerEnd.start()
         comprobarPuntuacion()
 
     }
@@ -121,45 +129,53 @@ class PreguntasActivity: AppCompatActivity(){
 
     private fun initListeners(num: Int) {
 
-        val colorAcierto = ColorStateList.valueOf(Color.GREEN)
-        val colorFallo = ColorStateList.valueOf(Color.RED)
+        val mediaPlayerGood = MediaPlayer.create(this, R.raw.good)
+        val mediaPlayerBad = MediaPlayer.create(this, R.raw.bad)
 
         binding.tvrespuestaA.setOnClickListener {
             if (binding.tvrespuestaA.text.equals(listaPreguntas[num].respuestaCorrecta.toString())) {
+                mediaPlayerGood.start()
                 actualizarMarcador()
                 listaPreguntas.removeAt(num)
                 empezarJuego()
             } else {
+                mediaPlayerBad.start()
                 listaPreguntas.removeAt(num)
                 empezarJuego()
             }
         }
         binding.tvrespuestaB.setOnClickListener {
             if (binding.tvrespuestaB.text.equals(listaPreguntas[num].respuestaCorrecta.toString())) {
+                mediaPlayerGood.start()
                 actualizarMarcador()
                 listaPreguntas.removeAt(num)
                 empezarJuego()
             } else {
+                mediaPlayerBad.start()
                 listaPreguntas.removeAt(num)
                 empezarJuego()
             }
         }
         binding.tvrespuestaC.setOnClickListener {
             if (binding.tvrespuestaC.text.equals(listaPreguntas[num].respuestaCorrecta.toString())) {
+                mediaPlayerGood.start()
                 actualizarMarcador()
                 listaPreguntas.removeAt(num)
                 empezarJuego()
             } else {
+                mediaPlayerBad.start()
                 listaPreguntas.removeAt(num)
                 empezarJuego()
             }
         }
         binding.tvrespuestaD.setOnClickListener {
             if (binding.tvrespuestaD.text.equals(listaPreguntas[num].respuestaCorrecta.toString())) {
+                mediaPlayerGood.start()
                 actualizarMarcador()
                 listaPreguntas.removeAt(num)
                 empezarJuego()
             } else {
+                mediaPlayerBad.start()
                 listaPreguntas.removeAt(num)
                 empezarJuego()
             }
@@ -168,10 +184,11 @@ class PreguntasActivity: AppCompatActivity(){
 
     private fun contadorCircular(){
         binding.progressCircular.apply {
-            setProgressWithAnimation(1f, 10000)
+            setProgressWithAnimation(1f, 15000)
 
             progressMax = 1f
-            progressBarColor = Color.BLUE
+            progressBarColorStart = Color.RED
+            progressBarColorEnd = Color.BLUE
             backgroundProgressBarColor = Color.GRAY
 
             binding.progressCircular.onProgressChangeListener = { progress ->
