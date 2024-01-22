@@ -2,4 +2,5 @@
     <string name="app_name">LosGoyApp</string>
     <string name="titulo_preguntas_activity">¿Cúanto sabes de...?</string>
     <string name="ranking">TOP 5</string>
+    <string name="subtitulo_preguntas_activity">LOS GOYA</string>
 </resources>

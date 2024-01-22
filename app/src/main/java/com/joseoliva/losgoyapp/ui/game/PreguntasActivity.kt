@@ -1,27 +1,31 @@
 package com.joseoliva.losgoyapp.ui.game
 
+import android.app.Dialog
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
+import android.view.WindowManager
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.joseoliva.losgoyapp.data.models.QuestionResponse
-import com.joseoliva.losgoyapp.data.models.rankingModel
+import com.joseoliva.losgoyapp.data.models.RankingModel
 import com.joseoliva.losgoyapp.databinding.ActivityPreguntasBinding
+import com.joseoliva.losgoyapp.databinding.DialogItemRankingBinding
+import com.joseoliva.losgoyapp.ui.main.MainActivity
 import com.joseoliva.losgoyapp.ui.ranking.RankingActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class PreguntasActivity: AppCompatActivity(){
 
     private lateinit var binding: ActivityPreguntasBinding
+    private val viewmodel: PreguntasActivityViewModel by viewModels()
     private var listaPreguntas: MutableList<QuestionResponse> = mutableListOf()
-    private var listaRankig: MutableList<rankingModel> = mutableListOf()
+    private var listaRankig: MutableList<RankingModel> = mutableListOf()
 
     var numAle: Int = 0
     private var score = 0
@@ -38,14 +42,12 @@ class PreguntasActivity: AppCompatActivity(){
 
         menorPuntuacion = listaRankig[0].puntos!!
         for (r in listaRankig){
-            Log.i("preguntas","puntuacion vale ${r.puntos}")
             if(menorPuntuacion < r.puntos!!){
                 menorPuntuacion = menorPuntuacion
             }else{
                 menorPuntuacion = r.puntos!!
             }
         }
-        Log.i("preguntas","menor puntuacion vale $menorPuntuacion")
         setPlay()
     }
 
@@ -55,9 +57,6 @@ class PreguntasActivity: AppCompatActivity(){
     }
 
     private fun empezarJuego() {
-
-        Log.d("preguntas", "la lista tiene ${listaPreguntas.size}")
-        Log.d("preguntas", "el ranking tiene ${listaRankig.size}")
         if(listaPreguntas.size >= 1){
             numAle = (0..listaPreguntas.size -1).random()
 
@@ -83,23 +82,41 @@ class PreguntasActivity: AppCompatActivity(){
         binding.tvscore.text = totalScore.toString()
     }
 
-    private suspend fun finalizarJuego(){
+    private fun finalizarJuego(){
         comprobarPuntuacion()
-        delay(4000)
-        val intent = Intent(this, RankingActivity::class.java)
-        startActivity(intent)
+
     }
 
     private fun comprobarPuntuacion() {
         if (menorPuntuacion < totalScore){
-            Log.i("preguntas", "la puntuacion mas baja es: $menorPuntuacion")
-            Log.i("preguntas", "Mi puntuacion es: $totalScore")
-            Toast.makeText(this,"Enhorabuena! entras en el top 5!!!",Toast.LENGTH_SHORT).show()
+            showDialog()
         }else{
-            Log.i("preguntas", "la puntuacion mas baja es: $menorPuntuacion")
-            Log.i("preguntas", "Mi puntuacion es: $totalScore")
             Toast.makeText(this,"NO entras en el top 5!!!",Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
+    }
+
+    private fun showDialog() {
+            val binding = DialogItemRankingBinding.inflate(layoutInflater) //podemos crear aqui mismo un binding
+            val dialog = Dialog(this)
+            dialog.setContentView(binding.root) //esto es igual que en las activities
+
+            dialog.window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT) //esto es para que la ventana del dialogo se adapte a las medidas.
+
+            binding.btnEnviar.setOnClickListener {
+
+                val nombre = binding.etNombre.text.toString()
+                if(nombre.isEmpty()){
+                    Toast.makeText(this,"Debes escribir un nombre", Toast.LENGTH_SHORT).show()
+                }else{
+                    viewmodel.writeOnRanking(nombre,totalScore)
+                    val intent = Intent(this, RankingActivity::class.java)
+                    startActivity(intent)
+                    dialog.dismiss()
+                }
+            }
+            dialog.show()
     }
 
     private fun initListeners(num: Int) {
@@ -113,7 +130,6 @@ class PreguntasActivity: AppCompatActivity(){
                 listaPreguntas.removeAt(num)
                 empezarJuego()
             } else {
-                Toast.makeText(this, "Has fallado", Toast.LENGTH_SHORT).show()
                 listaPreguntas.removeAt(num)
                 empezarJuego()
             }
@@ -124,7 +140,6 @@ class PreguntasActivity: AppCompatActivity(){
                 listaPreguntas.removeAt(num)
                 empezarJuego()
             } else {
-                Toast.makeText(this, "Has fallado", Toast.LENGTH_SHORT).show()
                 listaPreguntas.removeAt(num)
                 empezarJuego()
             }
@@ -135,7 +150,6 @@ class PreguntasActivity: AppCompatActivity(){
                 listaPreguntas.removeAt(num)
                 empezarJuego()
             } else {
-                Toast.makeText(this, "Has fallado", Toast.LENGTH_SHORT).show()
                 listaPreguntas.removeAt(num)
                 empezarJuego()
             }
@@ -146,7 +160,6 @@ class PreguntasActivity: AppCompatActivity(){
                 listaPreguntas.removeAt(num)
                 empezarJuego()
             } else {
-                Toast.makeText(this, "Has fallado", Toast.LENGTH_SHORT).show()
                 listaPreguntas.removeAt(num)
                 empezarJuego()
             }
@@ -174,9 +187,10 @@ class PreguntasActivity: AppCompatActivity(){
 
                     }
                 }
-
             }
         }
 
+    override fun onBackPressed() {
 
+    }
 }

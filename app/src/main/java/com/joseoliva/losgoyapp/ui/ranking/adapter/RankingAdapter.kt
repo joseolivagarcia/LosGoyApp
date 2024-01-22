@@ -4,12 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.joseoliva.losgoyapp.R
-import com.joseoliva.losgoyapp.data.models.rankingModel
+import com.joseoliva.losgoyapp.data.models.RankingModel
 import java.util.Collections
 
-class RankingAdapter(var listaRanking: MutableList<rankingModel>): RecyclerView.Adapter<RankingViewHolder>() {
+class RankingAdapter(var listaRanking: MutableList<RankingModel>): RecyclerView.Adapter<RankingViewHolder>() {
 
-    fun updateList(list: MutableList<rankingModel>){
+    fun updateList(list: MutableList<RankingModel>){
         listaRanking.clear()
         listaRanking.addAll(list)
         Collections.reverse(listaRanking)

@@ -11,7 +11,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.joseoliva.losgoyapp.data.models.QuestionResponse
-import com.joseoliva.losgoyapp.data.models.rankingModel
+import com.joseoliva.losgoyapp.data.models.RankingModel
 import com.joseoliva.losgoyapp.databinding.ActivitySplashBinding
 import com.joseoliva.losgoyapp.ui.game.PreguntasActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,7 +23,7 @@ class SplashActivity : AppCompatActivity() {
     private val splashViewModel: SplashActivityViewModel by viewModels()
     private lateinit var binding: ActivitySplashBinding
     var lista: MutableList<QuestionResponse> = mutableListOf()
-    var listaRanking: MutableList<rankingModel> = mutableListOf()
+    var listaRanking: MutableList<RankingModel> = mutableListOf()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
@@ -43,6 +43,7 @@ class SplashActivity : AppCompatActivity() {
                         listaRanking = splashViewModel.listadoRanking
                         navigateToGame()
                         Log.i("preguntas","accedo a game y la lista tiene: ${lista.size}")
+                        Log.i("preguntas","el id es: ${listaRanking[0].id}")
                     }
                 }
             }
