@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
     tools:context=".ui.ranking.RankingActivity">
 
     <TextView
@@ -18,7 +17,7 @@
         android:text="@string/ranking"
         android:textSize="32dp"
         android:textStyle="bold|italic"
-        android:textColor="@color/gold_dark"
+        android:textColor="@color/green_light"
         android:gravity="center"
         android:layout_marginVertical="22dp"/>
     <androidx.recyclerview.widget.RecyclerView

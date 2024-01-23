@@ -30,7 +30,8 @@ class MainActivity: AppCompatActivity() {
 
     private fun initListeners() {
         binding.btnStart.setOnClickListener {
-            startRotationAnimation(binding.ivlogo)
+            gotoQuizz()
+            //startRotationAnimation(binding.ivlogo)
             /*val intent = Intent(this, SplashActivity::class.java)
             startActivity(intent)*/
         }

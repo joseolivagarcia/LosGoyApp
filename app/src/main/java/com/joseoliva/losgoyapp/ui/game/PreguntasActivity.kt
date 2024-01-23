@@ -184,7 +184,7 @@ class PreguntasActivity: AppCompatActivity(){
 
     private fun contadorCircular(){
         binding.progressCircular.apply {
-            setProgressWithAnimation(1f, 15000)
+            setProgressWithAnimation(1f, 60000)
 
             progressMax = 1f
             progressBarColorStart = Color.RED
