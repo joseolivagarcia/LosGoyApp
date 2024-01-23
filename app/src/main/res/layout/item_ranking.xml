@@ -19,18 +19,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nombre"
-            android:textSize="32dp"
+            android:textSize="26dp"
             android:textStyle="italic|bold"
-            android:textColor="@color/green_light"
+            android:fontFamily="@font/lemonada"
+            android:textColor="@color/colorsecun"
             android:textAlignment="center"/>
         <TextView
             android:id="@+id/tvpuntosRanking"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="250"
-            android:textSize="22dp"
+            android:textSize="20dp"
             android:textStyle="italic|bold"
-            android:textColor="@color/green"
+            android:fontFamily="@font/lemonada"
+            android:textColor="@color/colorterc"
             android:textAlignment="center"/>
 
     </LinearLayout>

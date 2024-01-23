@@ -3,12 +3,12 @@
     <style name="Base.Theme.LosGoyApp" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-        <item name="colorPrimary">#0097A7</item>
-        <item name="colorPrimaryVariant">#00796B</item>
+        <item name="colorPrimary">#ab3cfc</item>
+        <item name="colorPrimaryVariant">#7e6df3</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">#E64A19</item>
-        <item name="colorSecondaryVariant">#F57C00</item>
+        <item name="colorSecondary">#7c589a</item>
+        <item name="colorSecondaryVariant">#9f8cca</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>

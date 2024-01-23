@@ -9,4 +9,12 @@
     <color name="pink_dark">#F44D88</color>
     <color name="gold">#F3B348</color>
     <color name="gold_dark">#FA9C00</color>
+    <!-- Paleta de colores -->
+    <color name="colorppal">#AB3CFC</color>
+    <color name="colorsecun">#7E6DF3</color>
+    <color name="colorterc">#533B7C</color>
+    <color name="colorcuar">#7C589A</color>
+    <color name="colorquin">#9F8CCA</color>
+    <color name="colorsext">#3E394C</color>
+
 </resources>
